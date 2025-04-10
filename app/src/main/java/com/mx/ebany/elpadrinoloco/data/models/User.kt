@@ -1,9 +1,9 @@
 package com.mx.ebany.elpadrinoloco.data.models
 
 data class User(
+    val idMesa : Int = 0,
+    val idUsuario: Int = 0,
+    val cuenta: String = "",
     val nombre: String = "",
-    val edad: Int = 0,
-    val apellidoMaterno: String = "",
-    val apellidoPaterno: String = "",
-    val sesion: String = ""
+    val juegoAsociado: String = ""
 )

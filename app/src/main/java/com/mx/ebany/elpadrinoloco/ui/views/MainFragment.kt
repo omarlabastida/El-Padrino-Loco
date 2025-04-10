@@ -40,25 +40,12 @@ class MainFragment : Fragment() {
 
     private fun setInitialValues() {
         viewModel.loadUsers()
-
     }
 
     private fun setListeners() {
         binding.btnSave.setOnClickListener {
 
-            viewModel.addUserFirestore(
-                User(
-                nombre = "DAVID",
-                edad = 30,
-                apellidoPaterno = "GARCIA",
-                apellidoMaterno = "GONZALEZ",
-                sesion = "123456"
-
-            )
-            )
         }
-
-
     }
 
     private fun setObservers() {

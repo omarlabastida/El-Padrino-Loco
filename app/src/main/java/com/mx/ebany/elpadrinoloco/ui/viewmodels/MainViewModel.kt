@@ -8,8 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mx.ebany.elpadrinoloco.data.local.entities.UsersEntity
+import com.mx.ebany.elpadrinoloco.data.models.ComidaCatalogo
+import com.mx.ebany.elpadrinoloco.data.models.ComidaUsuario
+import com.mx.ebany.elpadrinoloco.data.models.Mesa
+import com.mx.ebany.elpadrinoloco.data.models.Sucursal
 import com.mx.ebany.elpadrinoloco.data.models.User
 import com.mx.ebany.elpadrinoloco.domain.usescase.MainUsesCase
+import com.mx.ebany.elpadrinoloco.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,8 +36,25 @@ class MainViewModel @Inject constructor(
     private val _dataUser = MutableLiveData<List<User>>()
     val dataUser: LiveData<List<User>> get() = _dataUser
 
+    private val _sucursal = MutableLiveData<List<Sucursal>>()
+    val sucursal: LiveData<List<Sucursal>> get() = _sucursal
+
+    private val _mesa = MutableLiveData<List<Mesa>>()
+    val mesa: LiveData<List<Mesa>> get() = _mesa
+
+    private val _comidaUsuario = MutableLiveData<List<ComidaUsuario>>()
+    val comidaUsuario: LiveData<List<ComidaUsuario>> get() = _comidaUsuario
+
+    private val _comidaCatalogo= MutableLiveData<List<ComidaCatalogo>>()
+    val comidaCatalogo: LiveData<List<ComidaCatalogo>> get() = _comidaCatalogo
+
+
     init {
-        getFirestoreData()
+        getUsers()
+        getSucursal()
+        getMesa()
+        getComidaUsuario()
+        getComidaCatalogo()
     }
 
     fun loadUsers() {
@@ -57,10 +79,9 @@ class MainViewModel @Inject constructor(
 
 
 
-    private fun getFirestoreData() {
-        Log.e("LABASTIDA", "Iniciando Firestore en tiempo real")
-
-        db.collection("user_table")
+    private fun getUsers() {
+        Log.e("LABASTIDA", "getUsers()")
+        db.collection(Constants.TABLE_USUARIO)
             .addSnapshotListener { snapshots, e ->
                 if (e != null) {
                     Log.e("LABASTIDA2", "Error al escuchar cambios", e)
@@ -70,7 +91,71 @@ class MainViewModel @Inject constructor(
                 val lista = snapshots?.documents?.mapNotNull { it.toObject(User::class.java) } ?: emptyList()
                 Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
 
-                _dataUser.postValue(lista) // 🔥 Esto actualiza la UI en tiempo real
+                _dataUser.postValue(lista)
+            }
+    }
+
+    private fun getSucursal() {
+        Log.e("LABASTIDA", "getSucursal()")
+        db.collection(Constants.TABLE_SUCURSAL)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                    return@addSnapshotListener
+                }
+
+                val lista = snapshots?.documents?.mapNotNull { it.toObject(Sucursal::class.java) } ?: emptyList()
+                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                _sucursal.postValue(lista)
+            }
+    }
+
+    private fun getMesa() {
+        Log.e("LABASTIDA", "getMesa()")
+        db.collection(Constants.TABLE_MESA)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                    return@addSnapshotListener
+                }
+
+                val lista = snapshots?.documents?.mapNotNull { it.toObject(Mesa::class.java) } ?: emptyList()
+                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                _mesa.postValue(lista)
+            }
+    }
+
+    private fun getComidaUsuario() {
+        Log.e("LABASTIDA", "getComidaUsuario()")
+        db.collection(Constants.TABLE_COMIDA_USUSARIO)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                    return@addSnapshotListener
+                }
+
+                val lista = snapshots?.documents?.mapNotNull { it.toObject(ComidaUsuario::class.java) } ?: emptyList()
+                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                _comidaUsuario.postValue(lista)
+            }
+    }
+
+    private fun getComidaCatalogo() {
+        Log.e("LABASTIDA", "getComidaCatalogo()")
+        db.collection(Constants.TABLE_COMIDA_CATALOGO)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                    return@addSnapshotListener
+                }
+
+                val lista = snapshots?.documents?.mapNotNull { it.toObject(ComidaCatalogo::class.java) } ?: emptyList()
+                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                _comidaCatalogo.postValue(lista)
             }
     }
 
