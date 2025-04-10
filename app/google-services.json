@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "300655144027",
+    "project_id": "el-padrino-loco",
+    "storage_bucket": "el-padrino-loco.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300655144027:android:bb1e94b1807d49defd237e",
+        "android_client_info": {
+          "package_name": "com.mx.ebany.elpadrinoloco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMModVr8GFFDD7HyG2k_8sUVm2dxRSTPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
