@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_client"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.mx.ebany.elpadrinoloco.ui.views.MainFragment"
-        android:label="fragment_main"
+        android:id="@+id/homeFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.Home.MainFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/cuentaFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.Cuenta.AccountCostsFragment"
+        android:label="Cuenta"
+        tools:layout="@layout/fragment_account_costs" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.Menu.MainCatalogFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_main_catalog" />
 </navigation>

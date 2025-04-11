@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/menuFragment"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+    <item
+        android:id="@+id/cuentaFragment"
+        android:icon="@drawable/ic_cuenta_costo"
+        android:title="Cuenta" />
+    <item
+        android:id="@+id/nosotrosFragment"
+        android:icon="@drawable/ic_el_padrino_logo"
+        android:title="Nosotros" />
+</menu>

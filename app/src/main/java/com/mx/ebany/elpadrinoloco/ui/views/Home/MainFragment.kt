@@ -1,4 +1,4 @@
-package com.mx.ebany.elpadrinoloco.ui.views
+package com.mx.ebany.elpadrinoloco.ui.views.Home
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.mx.ebany.elpadrinoloco.data.models.User
 import com.mx.ebany.elpadrinoloco.databinding.FragmentMainBinding
 import com.mx.ebany.elpadrinoloco.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
