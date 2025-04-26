@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mx.ebany.elpadrinoloco.data.local.entities.UsersEntity
+import com.mx.ebany.elpadrinoloco.data.models.CategoryFood
 import com.mx.ebany.elpadrinoloco.data.models.ComidaCatalogo
 import com.mx.ebany.elpadrinoloco.data.models.ComidaUsuario
 import com.mx.ebany.elpadrinoloco.data.models.Mesa
@@ -45,9 +46,14 @@ class MainViewModel @Inject constructor(
     private val _comidaUsuario = MutableLiveData<List<ComidaUsuario>>()
     val comidaUsuario: LiveData<List<ComidaUsuario>> get() = _comidaUsuario
 
+    private val _categoryFood = MutableLiveData<List<CategoryFood>>()
+    val categoryFood: LiveData<List<CategoryFood>> get() = _categoryFood
+
     private val _comidaCatalogo= MutableLiveData<List<ComidaCatalogo>>()
     val comidaCatalogo: LiveData<List<ComidaCatalogo>> get() = _comidaCatalogo
 
+    private val _actualClient = MutableLiveData<User>()
+    val actualClient: LiveData<User> get() = _actualClient
 
     init {
         getUsers()
@@ -55,6 +61,7 @@ class MainViewModel @Inject constructor(
         getMesa()
         getComidaUsuario()
         getComidaCatalogo()
+        getCategory()
     }
 
     fun loadUsers() {
@@ -75,6 +82,10 @@ class MainViewModel @Inject constructor(
                 _saveStatus.value = result.isSuccess
             }
         }
+    }
+
+    fun setActualClient(user: User) {
+        _actualClient.postValue(user)
     }
 
 
@@ -143,7 +154,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    private fun getComidaCatalogo() {
+    fun getComidaCatalogo() {
         Log.e("LABASTIDA", "getComidaCatalogo()")
         db.collection(Constants.TABLE_COMIDA_CATALOGO)
             .addSnapshotListener { snapshots, e ->
@@ -159,16 +170,34 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun addUserFirestore(user: User) {
-        db.collection("user_table")
-            .add(user)
-            .addOnSuccessListener {
-                Log.e("LABASTIDA", "Usuario agregado correctamente")
-            }
-            .addOnFailureListener {
-                Log.e("LABASTIDA", "Error al agregar usuario", it)
+    private fun getCategory() {
+        Log.e("LABASTIDA", "getComidaUsuario()")
+        db.collection(Constants.TABLE_COMIDA_CATEGORIA)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                    return@addSnapshotListener
+                }
+                Log.e("LABASTIDAC", "${snapshots?.documents}")
+                val lista = snapshots?.documents?.mapNotNull { it.toObject(CategoryFood::class.java) } ?: emptyList()
+                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                _categoryFood.postValue(lista)
             }
     }
+
+
+    fun addDataToFirestore(data: Any, tableName: String) {
+        db.collection(tableName)
+            .add(data)
+            .addOnSuccessListener {
+                Log.e("LABASTIDA", "Datos asignados correctamente en tabla: $tableName")
+            }
+            .addOnFailureListener {
+                Log.e("LABASTIDA", "Error", it)
+            }
+    }
+
 
 
 

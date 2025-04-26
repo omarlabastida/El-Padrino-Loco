@@ -11,6 +11,9 @@ class Constants {
         const val TABLE_MESA = "mesa_table"
         const val TABLE_COMIDA_USUSARIO = "comida_usuario_table"
         const val TABLE_COMIDA_CATALOGO = "comida_catalogo_table"
+        const val TABLE_COMIDA_CATEGORIA = "category_table"
+
+        const val B64_EXAMPLE = ""
     }
 
 }

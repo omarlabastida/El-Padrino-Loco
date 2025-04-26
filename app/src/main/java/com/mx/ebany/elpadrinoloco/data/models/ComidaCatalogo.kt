@@ -6,5 +6,8 @@ data class ComidaCatalogo(
     val disponibilidad: Boolean = false,
     val nombreAlimento: String = "",
     val precioUnitario: String = "",
-    val promocion: String = ""
+    val promocion: String = "",
+    val imagen: String = "",
+    val idCategoria: Int = 0,
+
 )
