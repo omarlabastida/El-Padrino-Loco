@@ -22,10 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    application: Application,
     private val usesCase: MainUsesCase,
     private val db: FirebaseFirestore
-
 ): ViewModel() {
 
     private val _userData = MutableLiveData<List<UsersEntity>?>()

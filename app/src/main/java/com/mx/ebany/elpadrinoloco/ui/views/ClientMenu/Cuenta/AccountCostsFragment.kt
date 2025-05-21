@@ -1,4 +1,4 @@
-package com.mx.ebany.elpadrinoloco.ui.views.Cuenta
+package com.mx.ebany.elpadrinoloco.ui.views.ClientMenu.Cuenta
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

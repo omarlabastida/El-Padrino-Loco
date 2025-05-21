@@ -1,4 +1,4 @@
-package com.mx.ebany.elpadrinoloco.ui.views.Menu
+package com.mx.ebany.elpadrinoloco.ui.views.AdminMenu
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,27 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.mx.ebany.elpadrinoloco.R
-import com.mx.ebany.elpadrinoloco.databinding.FragmentMainBinding
-import com.mx.ebany.elpadrinoloco.databinding.FragmentMainCatalogBinding
+import com.mx.ebany.elpadrinoloco.databinding.FragmentAdminBranchesBinding
 import com.mx.ebany.elpadrinoloco.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class AdminBranchesFragment : Fragment() {
 
-class MainCatalogFragment : Fragment() {
-
-    private lateinit var binding: FragmentMainCatalogBinding
+    private lateinit var binding: FragmentAdminBranchesBinding
     private val viewModel: MainViewModel by activityViewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainCatalogBinding.inflate(inflater, container, false)
+        binding = FragmentAdminBranchesBinding.inflate(inflater, container, false)
         return binding.root
     }
 

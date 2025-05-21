@@ -14,7 +14,11 @@
         android:theme="@style/Theme.ElPadrinoLoco"
         tools:targetApi="31">
         <activity
-            android:name=".ui.views.MainActivity"
+            android:name=".ui.views.AdminMenu.AdminProductsFragment"
+            android:exported="false"
+            android:theme="@style/Theme.ElPadrinoLoco" />
+        <activity
+            android:name=".ui.views.login.LoginActivity"
             android:exported="true"
             android:screenOrientation="userPortrait">
             <intent-filter>
@@ -23,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.views.AdminMenu.AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.ClientMenu.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

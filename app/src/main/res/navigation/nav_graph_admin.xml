@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_admin"
+    app:startDestination="@id/adminHomeFragment">
+
+    <fragment
+        android:id="@+id/adminHomeFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.AdminHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_admin_home" />
+    <fragment
+        android:id="@+id/adminBranchesFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.AdminBranchesFragment"
+        android:label="Sucursales"
+        tools:layout="@layout/fragment_admin_branches" />
+    <fragment
+        android:id="@+id/adminEmployeesFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.AdminEmployeesFragment"
+        android:label="Empleados"
+        tools:layout="@layout/fragment_admin_employees" />
+    <fragment
+        android:id="@+id/adminProductsFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.AdminProductsFragment"
+        android:label="Productos"
+        tools:layout="@layout/fragment_admin_products" />
+</navigation>

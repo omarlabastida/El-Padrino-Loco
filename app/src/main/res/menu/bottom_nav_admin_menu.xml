@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/adminHomeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/adminBranchesFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Sucursales" />
+    <item
+        android:id="@+id/adminProductsFragment"
+        android:icon="@drawable/ic_menu"
+        android:title="Productos" />
+    <item
+        android:id="@+id/adminEmployeesFragment"
+        android:icon="@drawable/ic_el_padrino_logo"
+        android:title="Empleados" />
+</menu>

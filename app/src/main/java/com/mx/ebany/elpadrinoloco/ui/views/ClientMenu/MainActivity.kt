@@ -1,10 +1,9 @@
-package com.mx.ebany.elpadrinoloco.ui.views
+package com.mx.ebany.elpadrinoloco.ui.views.ClientMenu
 
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
