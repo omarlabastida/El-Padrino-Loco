@@ -24,5 +24,14 @@
         android:id="@+id/adminProductsFragment"
         android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.AdminProductsFragment"
         android:label="Productos"
-        tools:layout="@layout/fragment_admin_products" />
+        tools:layout="@layout/fragment_admin_products" >
+        <action
+            android:id="@+id/action_adminProductsFragment_to_capturePictureFragment"
+            app:destination="@id/capturePictureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/capturePictureFragment"
+        android:name="com.mx.ebany.elpadrinoloco.ui.views.AdminMenu.CapturePictureFragment"
+        android:label="fragment_capture_picture"
+        tools:layout="@layout/fragment_capture_picture" />
 </navigation>

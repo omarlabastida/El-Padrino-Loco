@@ -1,10 +1,13 @@
 package com.mx.ebany.elpadrinoloco.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import java.io.ByteArrayOutputStream
 
 class Tools {
 
@@ -27,5 +30,18 @@ class Tools {
                 null
             }
         }
+
+        fun uriToBitmap(uri: Uri, context: Context): Bitmap {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            return BitmapFactory.decodeStream(inputStream!!)
+        }
+
+        fun bitmapToBase64(bitmap: Bitmap): String {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
+            return Base64.encodeToString(byteArray, Base64.NO_WRAP)
+        }
+
     }
 }

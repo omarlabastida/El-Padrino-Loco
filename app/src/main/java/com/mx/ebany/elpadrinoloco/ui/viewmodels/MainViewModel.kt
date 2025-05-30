@@ -1,12 +1,14 @@
 package com.mx.ebany.elpadrinoloco.ui.viewmodels
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.mx.ebany.elpadrinoloco.data.local.entities.UsersEntity
 import com.mx.ebany.elpadrinoloco.data.models.CategoryFood
 import com.mx.ebany.elpadrinoloco.data.models.ComidaCatalogo
@@ -18,12 +20,14 @@ import com.mx.ebany.elpadrinoloco.domain.usescase.MainUsesCase
 import com.mx.ebany.elpadrinoloco.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val usesCase: MainUsesCase,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val fireStorage: FirebaseStorage,
 ): ViewModel() {
 
     private val _userData = MutableLiveData<List<UsersEntity>?>()
@@ -152,20 +156,37 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun getComidaCatalogo() {
+    fun getComidaCatalogo(idCategory: Int? = null) {
         Log.e("LABASTIDA", "getComidaCatalogo()")
-        db.collection(Constants.TABLE_COMIDA_CATALOGO)
-            .addSnapshotListener { snapshots, e ->
-                if (e != null) {
-                    Log.e("LABASTIDA2", "Error al escuchar cambios", e)
-                    return@addSnapshotListener
+        if(idCategory != null){
+            db.collection(Constants.TABLE_COMIDA_CATALOGO)
+                .whereEqualTo(Constants.ID_CATEGORY_FOOD, idCategory)
+                .addSnapshotListener { snapshots, e ->
+                    if (e != null) {
+                        Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                        return@addSnapshotListener
+                    }
+
+                    val lista = snapshots?.documents?.mapNotNull { it.toObject(ComidaCatalogo::class.java) } ?: emptyList()
+                    Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+
+                    _comidaCatalogo.postValue(lista)
                 }
+        }else{
+            db.collection(Constants.TABLE_COMIDA_CATALOGO)
+                .addSnapshotListener { snapshots, e ->
+                    if (e != null) {
+                        Log.e("LABASTIDA2", "Error al escuchar cambios", e)
+                        return@addSnapshotListener
+                    }
 
-                val lista = snapshots?.documents?.mapNotNull { it.toObject(ComidaCatalogo::class.java) } ?: emptyList()
-                Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
+                    val lista = snapshots?.documents?.mapNotNull { it.toObject(ComidaCatalogo::class.java) } ?: emptyList()
+                    Log.e("LABASTIDA", "Datos actualizados en tiempo real: $lista")
 
-                _comidaCatalogo.postValue(lista)
-            }
+                    _comidaCatalogo.postValue(lista)
+                }
+        }
+
     }
 
     private fun getCategory() {
@@ -194,6 +215,42 @@ class MainViewModel @Inject constructor(
             .addOnFailureListener {
                 Log.e("LABASTIDA", "Error", it)
             }
+    }
+
+
+    fun deleteDataFirestore(nameId: String, idElement: Int, tableName: String){
+
+        db.collection(tableName)
+            .whereEqualTo(nameId, idElement)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    val docId = document.id
+                    db.collection(tableName)
+                        .document(docId)
+                        .delete()
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Usuario eliminado: $docId")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore", "Error al eliminar", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "Error al buscar", e)
+            }
+    }
+
+
+    fun uploadFileToStorage(uri: Uri) {
+        val storageRef = fireStorage.reference
+        val fileRef = storageRef.child("imagenes/${UUID.randomUUID()}.png")
+        fileRef.putFile(uri).addOnSuccessListener {
+            fileRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                Log.e("LABASTIDA", "URL de descarga: $downloadUrl")
+            }
+        }
     }
 
 

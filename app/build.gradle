@@ -90,4 +90,7 @@ dependencies {
 
     // Opcional: Firebase Analytics
     implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.firebase:firebase-storage-ktx:20.3.0'
+
 }

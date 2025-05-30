@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">El Padrino Loco</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_product">Añadir nuevo producto</string>
+    <string name="add_category">Añadir nuevo catregoría</string>
+
+
+    <string name="product_name">Nombre del producto</string>
+    <string name="product_price">Precio 0.00 MXM</string>
+    <string name="product_description">Descripción del producto</string>
+    <string name="product_category">Categoría del producto</string>
+    <string name="product_image">Imagen del producto</string>
+
 
 </resources>
